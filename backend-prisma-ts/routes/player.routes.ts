@@ -20,8 +20,8 @@ const playerRouter = (app: Express) => {
 
     // Delete a Player with id
     router.delete("/:pid", playerController.delete);
-
     router.post("/login", authController.login);
+    router.post("/signin", authController.signin);
 
     app.use("/api/players", router);
 }
