@@ -170,10 +170,7 @@ const playerController = {
                 return res.json(data);
             })
             .catch((err) => {
-                return res.json({
-                    code: 500,
-                    msg: "Some error occurred while retrieving Player by PID",
-                });
+                // res.status(500).send("Some error occurred while retrieving Player by PID");
             });
 
         // try {

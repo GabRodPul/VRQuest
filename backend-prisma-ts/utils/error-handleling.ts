@@ -1,11 +1,11 @@
-import prisma from "../../backend-prisma-ts-original/config/prisma";
+import prisma from "../../backend-prisma-ts/config/prisma";
 import express, { Request, Response } from "express";
-import { encryptPassword } from "../../backend-prisma-ts-original/utils/encrypt";
+import { encryptPassword } from "../../backend-prisma-ts/utils/encrypt";
 import { Prisma } from "@prisma/client";
 
 
 export type Result<T, E = Error> =
-    | { ok: true; value: T }
+    | { ok: true ; value: T }
     | { ok: false; error: E };
 
 export type ResParams = { code: number, msg: string };
