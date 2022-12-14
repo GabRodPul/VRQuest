@@ -1,22 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
+public class Projectile : MonoBehaviour
 {
-    // Projectile
-    public GameObject projectile;
 
-    // Bullet force
-    public float shootForce;
-
-    // Weapon stats
-    public float cooldown, spread;
-    public int maxAmmo, fireRate;
-    public bool allowHold;
-    int ammoLeft;
-
-    public GameObject shootPoint;
+    [Header("Settings")]
+    [Tooltip("Proyectile")][SerializeField] private GameObject prjt;
+    [Tooltip("Despawn timer")][SerializeField] private float despawnTimer = 5f;
 
     // Start is called before the first frame update
     void Start()
@@ -24,18 +16,22 @@ public class Weapon : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    void OnCollisionEnter(Collision col) {
+        var obj = col.gameObject;
+        switch (obj.tag) {
+            case "Asteroid":
+                Debug.Log("Hit!");
+                // obj.GetComponent<Rigidbody>().AddForce(prjt.transform.forward * 100f);
+                obj.GetComponent<Fracture>().FractureObject();
+                // Instantiate(Adios);
+                break;
 
-    void Shoot()
-    {
-    //     RaycastHit hit;
-    //     Quaternion fireRotation = Quaternion.LookRotation(transform.forward);
- 
-    //     GameObject tempBullet = Instantiate(projectile, shootPoint.transform.position, fireRotation);
-    //     tempBullet.GetComponent<ProyectilePhysics>().hitPoint = hit.point;
+            default:
+                break;
+        }
+        Debug.Log("Lmao");
+        // Destroy(prjt);
+        // Destroy(this);
+        Destroy(gameObject);
     }
 }

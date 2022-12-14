@@ -1,5 +1,5 @@
 export type PlayerData = {
-    pid: string;
+    pid?: string;
     username: string;
     password: string;
 };

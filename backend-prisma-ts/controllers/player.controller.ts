@@ -1,7 +1,7 @@
 import prisma from "../config/prisma";
 import express, { Request, Response } from "express";
 import { encryptPassword } from "../utils/encrypt";
-import { Prisma, Result } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { PlayerData } from "../types/player.type";
 import handleReqBody from "../utils/error-handleling";
 
@@ -30,7 +30,7 @@ const playerController = {
         //     return;
         // }
         const result = handleReqBody.handleReqBody<PlayerData>(
-            req,
+            req.body,
             { code: 400, msg: "Must provide username and password!" },
             validate.pdNotEmpty
         );
@@ -53,10 +53,10 @@ const playerController = {
             .catch((err) => {
                 switch (err.code) {
                     case "P2002":
-                        // return res.json({
-                        //     code: 400, msg: `Player with username ${player.username} already exists`
-                        // });
-                        res.status(400).send("cagaste");
+                        return res.json({
+                            code: 400, msg: `Player with username ${player.username} already exists`
+                        });
+                        // res.status(400).send("Player already exists");
 
                     default:
                         return res.json({
@@ -128,26 +128,26 @@ const playerController = {
 
         // Send data
         // With promise
-        // prisma.player
-        //     .findUnique({ where: { pid } })
-        //     .then((data) => res.send(data))
-        //     .catch((err) => res.status(500)
-        //                        .send(err.message ?? "Some error occurred while retrieving Player by PID")
-        //     );
-
-        try {
-            res.send(await prisma.player.findUnique({ where: { pid } }));
-        } catch (err: any) {
-            res.status(500).send(
-                err.message ??
-                    "Some error occurred while retrieving Player by PID"
+        prisma.player
+            .findUnique({ where: { pid } })
+            .then((data) => res.send(data))
+            .catch((err) => res.status(500)
+                               .send(err.message ?? "Some error occurred while retrieving Player by PID")
             );
-        }
+
+        // try {
+        //     res.send(await prisma.player.findUnique({ where: { pid } }));
+        // } catch (err: any) {
+        //     res.status(500).send(
+        //         err.message ??
+        //             "Some error occurred while retrieving Player by PID"
+        //     );
+        // }
     },
 
-    findOne: async (req: Request, res: Response) => {
+    findOne: async (req: Request, res: Response, param: boolean) => {
         const result = handleReqBody.handleReqBody<{ username: string }>(
-            req.params,
+            param ? req.params : req.body,
             { code: 400, msg: "Username cannot be empty!" },
             (u): boolean => {
                 return u !== undefined || u !== "";
@@ -161,6 +161,7 @@ const playerController = {
 
         // Send data
         // With promise
+        // console.log(username);
         prisma.player
             .findUnique({ where: { username } })
             .then((data) => {

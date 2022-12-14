@@ -23,6 +23,7 @@ function handleReqBody<T>(
     }
     const body = reqBody as T;
 
+    console.log(body)
     if (!validate(body)) {
         return {
             ok: false,

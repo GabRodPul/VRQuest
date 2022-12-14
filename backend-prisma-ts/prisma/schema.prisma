@@ -14,20 +14,26 @@ model Player {
   password  String   @db.VarChar(255)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  records      Record[]
+  games     Game[]
+  settings  Settings?
 }
 
+model Settings {
+  sid      String @id @unique @default(cuid())
 
-model Record {
-  gid String @id @unique @default(cuid())
+  player   Player @relation(fields: [playerId], references: [pid])
+  playerId String @unique
+
+  volumePercentage Int
+}
+
+model Game {
+  gid      String @id @unique @default(cuid())
 
   player   Player @relation(fields: [playerId], references: [pid], onDelete: Cascade)
   playerId String
-  score  Int
-  result Result
-}
-
-enum Result {
-  VICTORY
-  DEFEAT
+  
+  score    Int
+  powerups Int
+  time     Int
 }
