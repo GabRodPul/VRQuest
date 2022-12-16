@@ -1,5 +1,5 @@
-export type GameData = {
-    gid?: string;
+export type RecordData = {
+    rid?: string;
     playerId: string;
     score: number;
     powerups: number;

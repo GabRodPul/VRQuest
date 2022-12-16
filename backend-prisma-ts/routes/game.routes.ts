@@ -1,27 +1,27 @@
 import express, { Express } from "express";
-import { GameData } from "../types/game.type";
-import gameController from "../controllers/game.controller";
+import { RecordData } from "../types/record.type";
+import recordController from "../controllers/record.controller";
 
 const recordRouter = (app: Express) => {
     const router = express.Router();
 
     // Create a new Record
-    router.post("/create", gameController.create);
+    router.post("/create", recordController.create);
 
     // Retrieve all Records
-    router.get("/", gameController.findAll);
+    router.get("/", recordController.findAll);
 
     // Retrieve one Record with rid
-    router.get("/:rid", gameController.findByPk);
+    router.get("/:rid", recordController.findByPk);
     
     // Retrieve all Records of a Player with pid
-    router.get("/from/:pid", gameController.findAllAndCount );
+    router.get("/from/:pid", recordController.findAllAndCount );
 
     // Update a Record with id
-    router.put("/:rid", gameController.update);
+    router.put("/:rid", recordController.update);
 
     // Delete a Player with id
-    router.delete("/:rid", gameController.delete);
+    router.delete("/:rid", recordController.delete);
 
 
     app.use("/api/records", router);

@@ -1,7 +1,7 @@
 import prisma from "../config/prisma";
 import express, { Request, Response } from "express";
 import { Prisma } from "@prisma/client";
-import { GameData } from "../types/game.type";
+import { RecordData } from "../types/record.type";
 import handleReqBody from "../utils/error-handleling";
 import { PlayerData } from "../types/player.type";
 
@@ -14,7 +14,7 @@ import { PlayerData } from "../types/player.type";
 // };
 
 const validate = {
-    rdNotEmpty: (rd: GameData) => {
+    rdNotEmpty: (rd: RecordData) => {
         return (
             rd.playerId !== undefined &&
             rd.score    !== undefined &&
@@ -28,9 +28,9 @@ const validate = {
     },
 };
 
-const gameController = {
+const recordController = {
     create: async (req: Request, res: Response) => {
-        const result = handleReqBody.handleReqBody<GameData>(
+        const result = handleReqBody.handleReqBody<RecordData>(
             req.body,
             { code: 400, msg: "Must playerId, score, powerups and time!" },
             validate.rdNotEmpty
@@ -55,7 +55,7 @@ const gameController = {
             time: result.value.time,
         };
 
-        prisma.game
+        prisma.record
             .create({ data: record })
             .then((data) => {
                 res.send(data);
@@ -63,13 +63,13 @@ const gameController = {
             .catch((err) => {
                 return res.json({
                     code: 500,
-                    msg: "Some error occurred while saving the Game Data",
+                    msg: "Some error occurred while saving the Record Data",
                 });
             });
     },
 
     findAll: async (req: Request, res: Response) => {
-        prisma.game
+        prisma.record
             .findMany()
             .then((data) => {
                 res.send(data);
@@ -77,7 +77,7 @@ const gameController = {
             .catch((err) => {
                 res.status(500).send(
                     err.message ??
-                        "Some error occurred while getting all Game Data"
+                        "Some error occurred while getting all Record Data"
                 );
             });
     },
@@ -85,7 +85,7 @@ const gameController = {
     findAllAndCount: async (req: Request, res: Response) => {
         const result = handleReqBody.handleReqBody<{ playerId: string }>(
             req.params,
-            { code: 400, msg: "Game ID cannot be empty!" },
+            { code: 400, msg: "Record ID cannot be empty!" },
             validate.emptyField
         );
 
@@ -102,7 +102,7 @@ const gameController = {
 
         const { playerId } = result.value;
 
-        prisma.game
+        prisma.record
             .findMany({ where: { playerId } })
             .then((data) => {
                 res.send(data);
@@ -110,67 +110,67 @@ const gameController = {
             .catch((err) => {
                 return res.json({
                     code: 500,
-                    msg: "Some error ocurred while retrieving all Games by that Player"
+                    msg: "Some error ocurred while retrieving all Records by that Player"
                 })
             });     
     },
 
     findByPk: async (req: Request, res: Response) => {
-        const result = handleReqBody.handleReqBody<{ gid: string }>(
+        const result = handleReqBody.handleReqBody<{ rid: string }>(
             req.params,
-            { code: 400, msg: "Game ID cannot be empty!" },
+            { code: 400, msg: "Record ID cannot be empty!" },
             validate.emptyField
         );
 
         if (!result.ok)
             return res.json({ code: result.error.code, msg: result.error.msg });
 
-        const { gid } = result.value;
+        const { rid } = result.value;
 
         // Send data
         // With promise
-        prisma.game
-            .findUnique({ where: { gid } })
+        prisma.record
+            .findUnique({ where: { rid } })
             .then((data) => res.send(data))
             .catch((err) =>
                 res
                     .status(500)
                     .send(
                         err.message ??
-                            "Some error occurred while retrieving Game by GID"
+                            "Some error occurred while retrieving Record by rid"
                     )
             );
     },
 
     findOne: async (req: Request, res: Response) => {
-        const result = handleReqBody.handleReqBody<{ gid: string }>(
+        const result = handleReqBody.handleReqBody<{ rid: string }>(
             req.params,
-            { code: 400, msg: "Game ID cannot be empty!" },
+            { code: 400, msg: "Record ID cannot be empty!" },
             validate.emptyField
         );
 
         if (!result.ok)
             return res.json({ code: result.error.code, msg: result.error.msg });
 
-        const { gid } = result.value;
+        const { rid } = result.value;
 
         // Send data
         // With promise
-        prisma.game
-            .findUnique({ where: { gid } })
+        prisma.record
+            .findUnique({ where: { rid } })
             .then((data) => res.send(data))
             .catch((err) =>
                 res
                     .status(500)
                     .send(
                         err.message ??
-                            "Some error occurred while retrieving Game by GID"
+                            "Some error occurred while retrieving Record by rid"
                     )
             );
     },
 
-    update: async (req: Request<{ gid: string }>, res: Response) => {
-        const result = handleReqBody.handleReqBody<GameData>(
+    update: async (req: Request<{ rid: string }>, res: Response) => {
+        const result = handleReqBody.handleReqBody<RecordData>(
             req.params,
             { code: 400, msg: "Content cannot be empty!" },
             validate.rdNotEmpty
@@ -188,8 +188,8 @@ const gameController = {
  
         try {
             res.send(
-                await prisma.game.update({
-                    where: { gid: req.params.gid },
+                await prisma.record.update({
+                    where: { rid: req.params.rid },
                     data: record,
                 })
             );
@@ -200,22 +200,22 @@ const gameController = {
         }
     },
 
-    delete: async (req: Request<{ gid: string }>, res: Response) => {
-        const result = handleReqBody.handleReqBody<{ gid: string }>(
+    delete: async (req: Request<{ rid: string }>, res: Response) => {
+        const result = handleReqBody.handleReqBody<{ rid: string }>(
             req.params,
-            { code: 400, msg: "Game ID cannot be empty!" },
+            { code: 400, msg: "Record ID cannot be empty!" },
             validate.emptyField
         );
 
         if (!result.ok)
             return res.json({ code: result.error.code, msg: result.error.msg });
     
-        const { gid } = result.value;
+        const { rid } = result.value;
     
         try {
             res.send(
-                await prisma.game.delete({
-                    where: { gid },
+                await prisma.record.delete({
+                    where: { rid },
                 })
             );
         } catch (err: any) {
@@ -226,4 +226,4 @@ const gameController = {
     },
 };
 
-export default gameController;
+export default recordController;

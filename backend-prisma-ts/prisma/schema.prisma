@@ -14,7 +14,7 @@ model Player {
   password  String   @db.VarChar(255)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  games     Game[]
+  records     Record[]
   settings  Settings?
 }
 
@@ -27,8 +27,8 @@ model Settings {
   volumePercentage Int
 }
 
-model Game {
-  gid      String @id @unique @default(cuid())
+model Record {
+  rid      String @id @unique @default(cuid())
 
   player   Player @relation(fields: [playerId], references: [pid], onDelete: Cascade)
   playerId String
