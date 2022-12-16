@@ -9,7 +9,6 @@ VR Space shooter made with Unity
 5. [FAQs](#faqs)
 
 ## General Info
-***
 This a simple VR game in which you control a little spaceship, moving it around with your hand, shooting at asteroids and getting new high records.
 After creating an account, you'll be able to play the game, upload your records and use the web to customize your profile, see your stats and the global ranking.
 
@@ -19,7 +18,6 @@ The web and the game are still a Work In Progress.
 ![Image text](https://www.united-internet.de/fileadmin/user_upload/Brands/Downloads/Logo_IONOS_by.jpg)
 
 ## Technologies
-***
 This project uses mainly the following technologies:
 
 * [NodeJS](https://nodejs.org/): The JS runtime. Used in both backend & frontend.
@@ -38,13 +36,11 @@ For the web frontend:
 * TODO: Maybe add the libraries I guess.
 
 ## Requirements
-***
 * NodeJS, at least version 16.3.0.
 * Unity 2021.3.11, if you want to check out the game.
 * A VR headset to play the game. The game supports several kinds of headsets but it was developed with the Quest 2.
 * MySQL
 ## Installation
-***
 - First, clone this repository:
 ```
 git clone https://github.com/GabRodPul/VRQuest.git
