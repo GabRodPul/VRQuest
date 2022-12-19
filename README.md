@@ -14,27 +14,6 @@ After creating an account, you'll be able to play the game, upload your records 
 
 The web and the game are still a Work In Progress.
 
-### Screenshot
-![Image text](https://www.united-internet.de/fileadmin/user_upload/Brands/Downloads/Logo_IONOS_by.jpg)
-
-## Technologies
-This project uses mainly the following technologies:
-
-* [NodeJS](https://nodejs.org/): The JS runtime. Used in both backend & frontend.
-
-For the backend:
-* [MySQL](https://www.mysql.com): The database
-* [Express](https://expressjs.com): The API
-* [Prisma](https://www.prisma.io): The ORM
-
-For the game:
-* [Unity](https://unity.com): The game engine.
-* TODO: Add info about XR
-
-For the web frontend:
-* [React](https://reactjs.org): The web framework
-* TODO: Maybe add the libraries I guess.
-
 ## Requirements
 * MySQL.
 * NodeJS, at least version 16.3.0.
