@@ -12,7 +12,7 @@ const playerRouter = (app: Express) => {
     router.get("/", playerController.findAll);
     
     // Retrieve a single Player with either id or username
-    router.get("/search/:username", playerController.findOne);
+    router.get("/search/:username", (req, res) => playerController.findOne(req, res, true) );
     router.get("/:pid", playerController.findByPk);
 
     // Update a Player with id
@@ -22,6 +22,7 @@ const playerRouter = (app: Express) => {
     router.delete("/:pid", playerController.delete);
     router.post("/login", authController.login);
     router.post("/signin", authController.signin);
+
 
     app.use("/api/players", router);
 }
