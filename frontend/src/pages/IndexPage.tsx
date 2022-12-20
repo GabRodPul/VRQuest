@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-const DEBUG = true;
+const DEBUG = false;
 
 const IndexPage = () => {
     const navigate = useNavigate();

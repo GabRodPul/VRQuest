@@ -12,9 +12,10 @@ model Player {
   
   username  String   @unique @db.VarChar(32)
   password  String   @db.VarChar(255)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  records     Record[]
+  // createdAt DateTime @default(now())
+  // updatedAt DateTime @updatedAt
+  isAdmin   Boolean  @default(false)
+  records   Record[]
   settings  Settings?
 }
 

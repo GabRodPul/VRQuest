@@ -20,8 +20,8 @@ const validate = {
 }
 
 const clamp = (n: number, min: number, max: number) => {
-    if (n < min) return min;
-    if (n > max) return max;
+    if (n <= min) return min;
+    if (n >= max) return max;
     return n;
 }
 
@@ -191,4 +191,4 @@ const settingsController = {
     },
 }
 
-export default { templateController: settingsController };
+export default settingsController; 
