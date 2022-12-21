@@ -50,11 +50,18 @@ A player has its records and settings saved in the database and may access a glo
 * R3.2. They can view and manage all records.
 * R3.3. They can view and manage all settings.
 
-### R4. Players have their own profile.
-* R4.1. They can play the game and upload their records.
-* R4.2. They can update your profile and delete your account.
-* R4.3. They can view all their records.
-* R4.4. They can access to the global ranking.
+### R4. Registered players can play the game.
+* R4.1. They login from the Unity game.
+* R4.2. They play the game, moving the spaceship around and shooting and avoiding asteroids.
+* R4.3. After a certain number of asteroids are destroyed, the player jumps into another screen to keep destroying more asteroids.
+* R4.4. Repeat 2 and 3 until the ship is destroyed or the player quits.
+* R4.5. The player uploads the results to the database.
+
+### R5. Players have their own profile.
+* R5.1. They can play the game and upload their records.
+* R5.2. They can update your profile and delete your account.
+* R5.3. They can view all their records.
+* R5.4. They can access to the global ranking.
 
 ***
 ##	Use Cases
@@ -80,9 +87,28 @@ This is the main color palette I've choosen. It is mainly compose of pastel, col
 * White is used as a foreground and as the little stars in the background, providing contrast.
 * Roman is used to display errors.
 
+### Fonts
+For the fonts, the game and web use "Iceberg" for the logo and title. It evokes a futuristic, cybernetic feeling which fits perfectly the concept of travelling across space.
+![logo](./logo.png)
+
+The rest of the text uses IBM Plex Sans Thai Looped, regular and bold. Nice and appealing to the eyes. 
+![rest](./ibm.png)
+
+
 ### Navigation
 To navigate to the different sections, I've choosen a side-burguer-menu that can be closed to allow for the rest of the elements in the page to have more space.
+This makes it easy to adapt to devices with different sizes and easy to navigate the web page.
+The icons are self-descriptive and have text next to them to further explain what that section is for.
+![menu](./menu.png)
 
+### The game
+The game is played with a VR headset and one of two controllers. 
+
+Basically, you pick a little spaceship, and it follows your controller's movements. 
+
+Then, asteroids start comming for you from the front, and the direction in which they come is always the same. This was done to keep head movements at minimun, for a less dizzier experience. 
+
+You destroy asteroids by shooting little proyectiles at them, and gain points. After a certain amount of asteroids are destroyed, you change scene and start again until your ship runs out of energy (3 hits) or you quit.
 
 ***
 ##	Manuals
